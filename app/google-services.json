@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "188658963120",
+    "project_id": "gohike-b07c0",
+    "storage_bucket": "gohike-b07c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188658963120:android:0464736617402579fde175",
+        "android_client_info": {
+          "package_name": "com.example.gohike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188658963120-3l9hcekvdcujnacf4k39agkjrnmc1vbe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHmJNp-KkRtieCehpaKNOXSNGL0npJVu0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188658963120-3l9hcekvdcujnacf4k39agkjrnmc1vbe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
