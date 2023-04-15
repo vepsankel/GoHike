@@ -22,9 +22,9 @@
         android:name="com.example.gohike.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <activity
-        android:id="@+id/loginActivity"
+    <fragment
+        android:id="@+id/navigation_login"
         android:name="com.example.gohike.ui.login.LoginActivity"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>

@@ -8,34 +8,40 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import com.example.gohike.databinding.ActivityLoginBinding
+import androidx.fragment.app.Fragment
 
 import com.google.firebase.auth.FirebaseAuth
 
 import com.example.gohike.R
+import com.example.gohike.databinding.FragmentLoginBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : Fragment() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: FragmentLoginBinding
 
     // Authentification
     private lateinit var auth: FirebaseAuth
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         super.onCreate(savedInstanceState)
 
         // Authentification
         auth = Firebase.auth
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = FragmentLoginBinding.inflate(layoutInflater)
 
         val username = binding.username
         val password = binding.password
@@ -46,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(viewLifecycleOwner, Observer {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
@@ -61,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
 
             loading.visibility = View.GONE
@@ -71,13 +77,7 @@ class LoginActivity : AppCompatActivity() {
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
             }
-            setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            finish()
         })
-
-
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -115,6 +115,9 @@ class LoginActivity : AppCompatActivity() {
                 loginViewModel.requestRegistration(username.text.toString(), password.text.toString())
             }
         }
+
+        val root: View = binding.root
+        return root
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -122,14 +125,14 @@ class LoginActivity : AppCompatActivity() {
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
-            applicationContext,
+            activity,
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 
