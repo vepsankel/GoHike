@@ -25,6 +25,11 @@
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.example.gohike.ui.login.LoginActivity"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.gohike.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

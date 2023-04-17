@@ -24,9 +24,6 @@ class LoginDataSource {
     // Firebase Authentification
     private var auth: FirebaseAuth = Firebase.auth
 
-    init {
-    }
-
     fun logout() {
         // TODO: revoke authentication
     }
