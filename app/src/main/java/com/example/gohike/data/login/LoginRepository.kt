@@ -65,10 +65,6 @@ class LoginRepository(val dataSource: LoginDataSource) : LoginHandle, Registrati
         user = event.user
     }
 
-    override fun onLoginFailure(event: LoginFailureEvent) {
-        // Do nothing
-    }
-
     override fun onRegistrationRequest(event: RegistrationRequestEvent) {
         user?.let {
             // User is already anthenticated
@@ -86,9 +82,4 @@ class LoginRepository(val dataSource: LoginDataSource) : LoginHandle, Registrati
     override fun onRegistrationSuccess(event: RegistrationSuccessEvent) {
         user = event.user
     }
-
-    override fun onRegistrationFailure(event: RegistrationFailureEvent) {
-        // Do nothing
-    }
-
 }
