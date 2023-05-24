@@ -3,13 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.gohike.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@id/navigation_login">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -26,7 +20,7 @@
         android:id="@+id/navigation_login"
         android:name="com.example.gohike.ui.login.LoginActivity"
         android:label="Login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/login_succesful"
             app:destination="@id/navigation_profile"
@@ -38,4 +32,39 @@
         android:name="com.example.gohike.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_route_list"
+        android:name="com.example.gohike.ui.route.RouteListFragment"
+        android:label="Routes"
+        tools:layout="@layout/fragment_route_list">
+        <action
+            android:id="@+id/action_navigation_route_list_to_routeFragment"
+            app:destination="@id/routeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="com.example.gohike.ui.route.RouteFragment"
+        android:label="Route"
+        tools:layout="@layout/fragment_route">
+        <action
+            android:id="@+id/action_navigation_route_to_routeMapFragment"
+            app:destination="@id/routeMapFragment"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/fui_slide_in_right"
+            app:popExitAnim="@anim/fui_slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/routeMapFragment"
+        android:name="com.example.gohike.ui.route.RouteMapFragment"
+        android:label="Route Map"
+        tools:layout="@layout/fragment_route_map">
+        <action
+            android:id="@+id/action_routeMapFragment_to_navigation_route"
+            app:destination="@id/routeFragment"
+            app:enterAnim="@anim/fui_slide_out_left"
+            app:exitAnim="@anim/fui_slide_in_right"
+            app:popEnterAnim="@anim/fui_slide_out_left"
+            app:popExitAnim="@anim/fui_slide_in_right" />
+    </fragment>
 </navigation>
