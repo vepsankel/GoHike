@@ -11,6 +11,7 @@ import com.example.gohike.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
+    private val TAG : String = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
