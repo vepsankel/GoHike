@@ -51,9 +51,9 @@ class ProfileDataSource {
 
         firebaseUserCopy.let {
             database.collection("users").document(firebaseUserCopy.uid).set(profile.toMutableMap()).addOnSuccessListener {
-                Log.e(TAG,"User saved!")
+                Log.e(TAG,"Profile $profile saved!")
             }.addOnFailureListener {
-                Log.w(TAG,"Could not save user: $it")
+                Log.w(TAG,"Could not save profile: $it")
             }
         }
     }

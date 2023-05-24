@@ -11,10 +11,14 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.gohike.connection.ConnectionThread
+import com.example.gohike.connection.login.LogoutEvent
 import com.example.gohike.databinding.FragmentProfileBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class ProfileFragment : Fragment() {
+    private lateinit var profileViewModel: ProfileViewModel
+
     private lateinit var loading: ProgressBar
     private lateinit var info: ScrollView
     private lateinit var profileIncompleteWarning: TextView
@@ -27,19 +31,20 @@ class ProfileFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        profileViewModel = ViewModelProvider(requireActivity())[ProfileViewModel::class.java]
+        profileViewModel.requestProfile()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+    ): View {
 
         profileViewModel.profileState.observe(viewLifecycleOwner, Observer {
             updateProfileState(it)
         })
 
+        // Inflate the layout for this fragment
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -57,7 +62,12 @@ class ProfileFragment : Fragment() {
             saveProfile()
         }
 
-        profileViewModel.requestProfile()
+        binding.logoutButton.setOnClickListener {
+            ConnectionThread.addEvent(LogoutEvent())
+        }
+
+        //profileViewModel.requestProfile()
+        //profileViewModel.profileState.value?.let { updateProfileState(it) }
 
         return root
     }
@@ -94,12 +104,11 @@ class ProfileFragment : Fragment() {
         info.visibility = View.VISIBLE
         profileIncompleteWarning.visibility = View.INVISIBLE
 
-        val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        firstName.editText?.setText(profileViewModel._FirstName.value)
-        lastName.editText?.setText(profileViewModel._LastName.value)
-        phoneNumber.editText?.setText(profileViewModel._PhoneNumber.value)
-        gender.editText?.setText(profileViewModel._Gender.value)
-        birthDate.editText?.setText(profileViewModel._BirthDate.value)
+        firstName.editText?.setText(profileViewModel._FirstName)
+        lastName.editText?.setText(profileViewModel._LastName)
+        phoneNumber.editText?.setText(profileViewModel._PhoneNumber)
+        gender.editText?.setText(profileViewModel._Gender)
+        birthDate.editText?.setText(profileViewModel._BirthDate)
 
         Log.i("ProfileFragment","Switched to LOADED_COMPLETE state")
     }
@@ -110,8 +119,8 @@ class ProfileFragment : Fragment() {
         profileIncompleteWarning.visibility = View.VISIBLE
 
         val profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-        firstName.editText?.setText(profileViewModel._FirstName.value)
-        lastName.editText?.setText(profileViewModel._LastName.value)
+        firstName.editText?.setText(profileViewModel._FirstName)
+        lastName.editText?.setText(profileViewModel._LastName)
 
         Log.i("ProfileFragment","Switched to LOADED_INCOMPLETE state")
     }

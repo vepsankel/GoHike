@@ -1,5 +1,13 @@
 <resources>
+
+    <!--    general-->
     <string name="app_name">GoHike</string>
+
+<!--    profile-->
+<!--    route-->
+<!--    route map-->
+<!--    route list-->
+<!--    unused-->
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -16,4 +24,6 @@
     <string name="registration_failed">"Registration failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

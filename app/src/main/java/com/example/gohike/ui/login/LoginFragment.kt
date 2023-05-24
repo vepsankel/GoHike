@@ -15,11 +15,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 
 import com.google.firebase.auth.FirebaseAuth
 
 import com.example.gohike.R
 import com.example.gohike.databinding.FragmentLoginBinding
+import com.example.gohike.ui.profile.ProfileViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -30,6 +33,11 @@ class LoginActivity : Fragment() {
 
     // Authentification
     private lateinit var auth: FirebaseAuth
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        ViewModelProvider(requireActivity())[ProfileViewModel::class.java]
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +50,7 @@ class LoginActivity : Fragment() {
         auth = Firebase.auth
 
         binding = FragmentLoginBinding.inflate(layoutInflater)
+        val root: View = binding.root
 
         val username = binding.username
         val password = binding.password
@@ -76,6 +85,7 @@ class LoginActivity : Fragment() {
             }
             if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
+                findNavController(root).navigate(R.id.login_succesful)
             }
         })
 
@@ -116,7 +126,6 @@ class LoginActivity : Fragment() {
             }
         }
 
-        val root: View = binding.root
         return root
     }
 

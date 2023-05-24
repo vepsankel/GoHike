@@ -19,11 +19,11 @@ class ProfileViewModel : ViewModel(), ProfileHandle {
 
     var _error = MutableLiveData<String>()
 
-    var _FirstName = MutableLiveData<String>()
-    var _LastName = MutableLiveData<String>()
-    var _PhoneNumber = MutableLiveData<String>()
-    var _Gender = MutableLiveData<String>()
-    var _BirthDate = MutableLiveData<String>()
+    var _FirstName = String()
+    var _LastName = String()
+    var _PhoneNumber = String()
+    var _Gender = String()
+    var _BirthDate = String()
 
     init {
         ConnectionThread.addProfileHandler(this)
@@ -77,14 +77,14 @@ class ProfileViewModel : ViewModel(), ProfileHandle {
         val profile = event.profile
         var isComplete = false
 
-        _FirstName.postValue(profile.firstName)
-        _LastName.postValue(profile.lastName)
-        _PhoneNumber.postValue(profile.phoneNumber)
-        _BirthDate.postValue(profile.birthDate)
-        _Gender.postValue(profile.gender)
+        _FirstName = profile.firstName ?: ""
+        _LastName = profile.lastName ?: ""
+        _PhoneNumber = profile.phoneNumber ?: ""
+        _BirthDate = profile.birthDate ?: ""
+        _Gender = profile.gender ?: ""
 
         // definition of "complete profile"
-        if (_FirstName.value != null && _LastName.value != null && _PhoneNumber.value != null)
+        if (_FirstName.compareTo("") != 0 && _LastName.compareTo("") != 0 && _PhoneNumber.compareTo("") != 0)
             isComplete = true
 
         if (isComplete) {

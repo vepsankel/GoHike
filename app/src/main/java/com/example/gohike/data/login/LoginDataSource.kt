@@ -28,8 +28,8 @@ class LoginDataSource {
         // TODO: revoke authentication
     }
 
-    fun login(event: LoginRequestEvent) {
-        auth.signInWithEmailAndPassword(event.email, event.password)
+    fun login(email : String, password : String) {
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information

@@ -48,6 +48,8 @@ class LoginRepository(val dataSource: LoginDataSource) : LoginHandle, Registrati
     }
 
     override fun onLoginRequest(event: LoginRequestEvent) {
+
+
         user?.let {
             // User is already authenticated
             Log.v(TAG, "User is already loged in")
@@ -58,7 +60,10 @@ class LoginRepository(val dataSource: LoginDataSource) : LoginHandle, Registrati
         Log.v(TAG, "Log in attempt...")
         // If user is not authenticated then request login
         // from the data source
-        dataSource.login(event)
+        val email = event.email
+        val password = event.password
+        if (email != null && password != null)
+            dataSource.login(email, password)
     }
 
     override fun onLoginSuccess(event: LoginSuccessEvent) {

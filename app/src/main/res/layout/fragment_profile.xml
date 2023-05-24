@@ -135,16 +135,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
-                    android:layout_weight="1"
-                    android:text="Cancel" />
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/save_button"
@@ -153,6 +144,14 @@
                     android:layout_marginLeft="10px"
                     android:layout_weight="1"
                     android:text="Save" />
+
+                <Button
+                    android:id="@+id/logout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_weight="1"
+                    android:text="Logout" />
             </LinearLayout>
 
         </LinearLayout>
