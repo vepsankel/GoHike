@@ -26,6 +26,7 @@ import com.example.gohike.connection.route.RoutesRetrievalFailureEvent
 import com.example.gohike.connection.route.RoutesRetrievalSuccessEvent
 import com.example.gohike.data.login.LoginDataSource
 import com.example.gohike.data.login.LoginRepository
+import com.example.gohike.data.notification.NotificationSource
 import com.example.gohike.data.profile.ProfileDataSource
 import com.example.gohike.data.profile.ProfileRepository
 import com.example.gohike.data.route.RouteDataSource
@@ -57,6 +58,8 @@ object ConnectionThread {
     private var routeDataSource : RouteDataSource = RouteDataSource()
     private var routeRepository : RouteRepository = RouteRepository(routeDataSource)
 
+    private var notificationSource : NotificationSource = NotificationSource()
+
     // view Model
     private var loginViewModel : LoginViewModel? = null
 
@@ -76,6 +79,7 @@ object ConnectionThread {
 
         this.getContext = getContext
         routeDataSource.getContext = this.getContext
+        notificationSource.getContext = this.getContext
 
         while (isRunning) {
             val event : ConnectionThreadEvent = queue.take()
